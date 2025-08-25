@@ -4,13 +4,27 @@ import { Edit, MapPin, Calendar, Globe, Video, Shield } from 'lucide-react';
 const Profile: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   
+  // Función para calcular la edad basada en la fecha de nacimiento
+  const calculateAge = (birthDate: string): number => {
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+    
+    return age;
+  };
+  
   // Mock data for demo
   const user = {
-    name: 'María García',
-    age: 28,
+    name: 'Mariana Estrada Romero',
+    birthDate: '1979-08-03',
     location: 'Ciudad de México',
-    bio: 'Me encanta la música, viajar y conocer gente nueva. Siempre buscando nuevas aventuras y conexiones auténticas.',
-    interests: ['Música', 'Viajes', 'Fotografía', 'Cocina', 'Yoga'],
+    bio: 'Me encanta la música, viajar y conocer gente nueva. Siempre buscando nuevas aventuras y conexiones auténticas. Disfruto de la vida y de las experiencias que me ofrece cada día.',
+    interests: ['Música', 'Viajes', 'Fotografía', 'Cocina', 'Yoga', 'Arte', 'Literatura'],
     languages: ['Español', 'Inglés', 'Francés'],
     profilePicture: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
     videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
@@ -52,7 +66,7 @@ const Profile: React.FC = () => {
               <div className="flex items-center space-x-4 text-gray-600">
                 <div className="flex items-center">
                   <Calendar className="w-4 h-4 mr-1" />
-                  <span>{user.age} años</span>
+                  <span>{calculateAge(user.birthDate)} años</span>
                 </div>
                 <div className="flex items-center">
                   <MapPin className="w-4 h-4 mr-1" />

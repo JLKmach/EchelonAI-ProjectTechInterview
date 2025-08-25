@@ -4,12 +4,26 @@ import { Heart, MessageCircle, X, MapPin } from 'lucide-react';
 const Matches: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'potential' | 'matches'>('potential');
 
+  // Función para calcular la edad basada en la fecha de nacimiento
+  const calculateAge = (birthDate: string): number => {
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+    
+    return age;
+  };
+
   // Mock data for potential matches
   const potentialMatches = [
     {
       id: '1',
       name: 'Carlos Mendoza',
-      age: 30,
+      birthDate: '1994-05-15',
       city: 'Madrid',
       distance: '2.3 km',
       profilePicture: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
@@ -21,7 +35,7 @@ const Matches: React.FC = () => {
     {
       id: '2',
       name: 'Sofia Torres',
-      age: 26,
+      birthDate: '1998-03-22',
       city: 'Madrid',
       distance: '1.8 km',
       profilePicture: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face',
@@ -33,7 +47,7 @@ const Matches: React.FC = () => {
     {
       id: '3',
       name: 'Diego Ramirez',
-      age: 29,
+      birthDate: '1995-11-08',
       city: 'Madrid',
       distance: '3.1 km',
       profilePicture: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
@@ -45,7 +59,7 @@ const Matches: React.FC = () => {
     {
       id: '4',
       name: 'Valentina Silva',
-      age: 27,
+      birthDate: '1997-07-14',
       city: 'Madrid',
       distance: '2.7 km',
       profilePicture: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face',
@@ -61,7 +75,7 @@ const Matches: React.FC = () => {
     {
       id: '1',
       name: 'Mariana Lopez',
-      age: 28,
+      birthDate: '1996-09-12',
       city: 'Madrid',
       profilePicture: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face',
       matchDate: '2024-01-20',
@@ -73,7 +87,7 @@ const Matches: React.FC = () => {
     {
       id: '2',
       name: 'Roberto Santos',
-      age: 31,
+      birthDate: '1993-02-28',
       city: 'Madrid',
       profilePicture: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face',
       matchDate: '2024-01-18',
@@ -85,7 +99,7 @@ const Matches: React.FC = () => {
     {
       id: '3',
       name: 'Carmen Vega',
-      age: 25,
+      birthDate: '1999-06-05',
       city: 'Madrid',
       profilePicture: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&crop=face',
       matchDate: '2024-01-15',
@@ -173,7 +187,7 @@ const Matches: React.FC = () => {
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900">{match.name}</h3>
                     <div className="flex items-center space-x-3 text-gray-600 text-sm">
-                      <span>{match.age} años</span>
+                      <span>{calculateAge(match.birthDate)} años</span>
                       <span>•</span>
                       <div className="flex items-center">
                         <MapPin className="w-4 h-4 mr-1" />
@@ -262,7 +276,7 @@ const Matches: React.FC = () => {
                     <span className="text-sm text-gray-500">{match.lastMessageTime}</span>
                   </div>
                   <div className="flex items-center space-x-4 text-gray-600 text-sm mb-2">
-                    <span>{match.age} años</span>
+                    <span>{calculateAge(match.birthDate)} años</span>
                     <span>•</span>
                     <div className="flex items-center">
                       <MapPin className="w-4 h-4 mr-1" />
