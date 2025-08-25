@@ -1,33 +1,26 @@
 import React, { useState } from 'react';
-import { useAuthStore } from '../stores/authStore';
-import { Edit, Camera, Heart, MapPin, Calendar, Globe, Star } from 'lucide-react';
+import { Edit, MapPin, Calendar, Globe, Video, Shield } from 'lucide-react';
 
 const Profile: React.FC = () => {
-  const { user, updateUser } = useAuthStore();
   const [isEditing, setIsEditing] = useState(false);
-
-  // Mock data for demonstration
-  const mockProfile = {
-    name: 'Alexandra Rodriguez',
+  
+  // Mock data for demo
+  const user = {
+    name: 'María García',
     age: 28,
-    city: 'Madrid',
-    postalCode: '28001',
-    bio: '¡Hola! Soy una apasionada del arte, la música y los viajes. Me encanta conocer nuevas personas y compartir experiencias. Siempre estoy buscando nuevas aventuras y conexiones auténticas.',
-    interests: ['Arte', 'Música', 'Viajes', 'Cocina', 'Fotografía'],
+    location: 'Ciudad de México',
+    bio: 'Me encanta la música, viajar y conocer gente nueva. Siempre buscando nuevas aventuras y conexiones auténticas.',
+    interests: ['Música', 'Viajes', 'Fotografía', 'Cocina', 'Yoga'],
     languages: ['Español', 'Inglés', 'Francés'],
-    profilePicture: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face',
+    profilePicture: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
     videoUrl: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4',
-    verificationScore: 95,
-    isVerified: true,
-    joinDate: '2024-01-15',
-    totalMatches: 12,
-    totalLikes: 47,
-    averageRating: 4.8
-  };
-
-  const handleSave = () => {
-    // TODO: Implement actual API call
-    setIsEditing(false);
+    verificationStatus: 'verified' as const,
+    stats: {
+      matches: 24,
+      conversations: 18,
+      meetings: 8,
+      rating: 4.8
+    }
   };
 
   return (
@@ -38,20 +31,20 @@ const Profile: React.FC = () => {
           <div className="flex items-center space-x-6">
             <div className="relative">
               <img
-                src={mockProfile.profilePicture}
-                alt={mockProfile.name}
+                src={user.profilePicture}
+                alt={user.name}
                 className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
               />
               <button className="absolute bottom-0 right-0 bg-purple-600 text-white p-2 rounded-full hover:bg-purple-700 transition-colors">
-                <Camera className="w-4 h-4" />
+                <Video className="w-4 h-4" />
               </button>
             </div>
             <div>
               <div className="flex items-center space-x-3 mb-2">
-                <h1 className="text-3xl font-bold text-gray-900">{mockProfile.name}</h1>
-                {mockProfile.isVerified && (
+                <h1 className="text-3xl font-bold text-gray-900">{user.name}</h1>
+                {user.verificationStatus === 'verified' && (
                   <div className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium flex items-center">
-                    <Star className="w-3 h-3 mr-1" />
+                    <Shield className="w-3 h-3 mr-1" />
                     Verificado
                   </div>
                 )}
@@ -59,15 +52,15 @@ const Profile: React.FC = () => {
               <div className="flex items-center space-x-4 text-gray-600">
                 <div className="flex items-center">
                   <Calendar className="w-4 h-4 mr-1" />
-                  <span>{mockProfile.age} años</span>
+                  <span>{user.age} años</span>
                 </div>
                 <div className="flex items-center">
                   <MapPin className="w-4 h-4 mr-1" />
-                  <span>{mockProfile.city}, {mockProfile.postalCode}</span>
+                  <span>{user.location}</span>
                 </div>
                 <div className="flex items-center">
                   <Globe className="w-4 h-4 mr-1" />
-                  <span>Miembro desde {new Date(mockProfile.joinDate).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })}</span>
+                  <span>Miembro desde {new Date().toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })}</span>
                 </div>
               </div>
             </div>
@@ -88,7 +81,7 @@ const Profile: React.FC = () => {
           {/* Bio */}
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Sobre mí</h2>
-            <p className="text-gray-700 leading-relaxed">{mockProfile.bio}</p>
+            <p className="text-gray-700 leading-relaxed">{user.bio}</p>
           </div>
 
           {/* Video Profile */}
@@ -111,7 +104,7 @@ const Profile: React.FC = () => {
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Intereses</h2>
             <div className="flex flex-wrap gap-2">
-              {mockProfile.interests.map((interest) => (
+              {user.interests.map((interest) => (
                 <span
                   key={interest}
                   className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium"
@@ -126,7 +119,7 @@ const Profile: React.FC = () => {
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">Idiomas</h2>
             <div className="flex flex-wrap gap-2">
-              {mockProfile.languages.map((language) => (
+              {user.languages.map((language) => (
                 <span
                   key={language}
                   className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
@@ -146,19 +139,19 @@ const Profile: React.FC = () => {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-gray-600">Matches</span>
-                <span className="text-2xl font-bold text-purple-600">{mockProfile.totalMatches}</span>
+                <span className="text-2xl font-bold text-purple-600">{user.stats.matches}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-gray-600">Me gusta</span>
-                <span className="text-2xl font-bold text-pink-600">{mockProfile.totalLikes}</span>
+                <span className="text-2xl font-bold text-pink-600">{user.stats.conversations}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-gray-600">Rating</span>
-                <span className="text-2xl font-bold text-yellow-600">{mockProfile.averageRating}</span>
+                <span className="text-2xl font-bold text-yellow-600">{user.stats.rating}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-gray-600">Verificación</span>
-                <span className="text-2xl font-bold text-green-600">{mockProfile.verificationScore}%</span>
+                <span className="text-2xl font-bold text-green-600">100%</span>
               </div>
             </div>
           </div>

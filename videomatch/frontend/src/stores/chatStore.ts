@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { ChatMessage, Match } from '../types';
+import { ChatMessage } from '../types';
 
 interface ChatState {
   messages: Record<string, ChatMessage[]>; // matchId -> messages
@@ -15,6 +15,7 @@ interface ChatState {
   setLoading: (loading: boolean) => void;
   clearChat: (matchId: string) => void;
   clearAllChats: () => void;
+  removeMessages: (matchId: string, messageIds: string[]) => void;
 }
 
 export const useChatStore = create<ChatState>((set, get) => ({
@@ -85,14 +86,13 @@ export const useChatStore = create<ChatState>((set, get) => ({
   },
   
   clearChat: (matchId: string) => {
-    const currentMessages = get().messages;
-    const currentUnreadCounts = get().unreadCounts;
-    const { [matchId]: removedMessages, ...remainingMessages } = currentMessages;
-    const { [matchId]: removedCount, ...remainingCounts } = currentUnreadCounts;
-    
-    set({
-      messages: remainingMessages,
-      unreadCounts: remainingCounts,
+    set((state) => {
+      return {
+        messages: {
+          ...state.messages,
+          [matchId]: []
+        }
+      };
     });
   },
   
@@ -101,6 +101,22 @@ export const useChatStore = create<ChatState>((set, get) => ({
       messages: {},
       unreadCounts: {},
       activeChat: null,
+    });
+  },
+
+  removeMessages: (matchId: string, messageIds: string[]) => {
+    set((state) => {
+      const currentMessages = state.messages[matchId] || [];
+      const updatedMessages = currentMessages.filter(
+        (msg) => !messageIds.includes(msg.id)
+      );
+      
+      return {
+        messages: {
+          ...state.messages,
+          [matchId]: updatedMessages
+        }
+      };
     });
   },
 }));

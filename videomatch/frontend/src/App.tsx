@@ -30,13 +30,14 @@ const App: React.FC = () => {
       <Route path="/login" element={!isAuthenticated ? <Login /> : <Navigate to="/profile" />} />
       <Route path="/register" element={!isAuthenticated ? <Register /> : <Navigate to="/profile" />} />
       
-      {/* Protected routes */}
-      <Route path="/" element={<Layout />}>
-        <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
-        <Route path="/video-upload" element={isAuthenticated ? <VideoUpload /> : <Navigate to="/login" />} />
-        <Route path="/matches" element={isAuthenticated ? <Matches /> : <Navigate to="/login" />} />
-        <Route path="/chat/:matchId?" element={isAuthenticated ? <Chat /> : <Navigate to="/login" />} />
-        <Route path="/verification" element={isAuthenticated ? <Verification /> : <Navigate to="/login" />} />
+      {/* Protected routes with Layout */}
+      <Route path="/app" element={<Layout />}>
+        <Route index element={<Navigate to="/app/profile" />} />
+        <Route path="profile" element={isAuthenticated ? <Profile /> : <Navigate to="/login" />} />
+        <Route path="video-upload" element={isAuthenticated ? <VideoUpload /> : <Navigate to="/login" />} />
+        <Route path="matches" element={isAuthenticated ? <Matches /> : <Navigate to="/login" />} />
+        <Route path="chat/:matchId?" element={isAuthenticated ? <Chat /> : <Navigate to="/login" />} />
+        <Route path="verification" element={isAuthenticated ? <Verification /> : <Navigate to="/login" />} />
       </Route>
       
       {/* 404 route */}

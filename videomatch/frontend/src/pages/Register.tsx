@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Eye, EyeOff, Loader2, Check } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import { useAuthStore } from '../stores/authStore';
 import toast from 'react-hot-toast';
 
@@ -35,22 +35,30 @@ const Register: React.FC = () => {
   const onSubmit = async (data: RegisterFormData) => {
     setIsLoading(true);
     try {
-      // TODO: Implement actual API call
-      // const response = await authService.register(data);
-      // login(response.user, response.token);
-      
-      // Mock registration for now
+      // Simular registro exitoso
       const mockUser = {
-        id: '1',
+        id: '2',
         email: data.email,
         name: data.name,
-        isVerified: false,
+        birthDate: data.birthDate,
+        city: data.city,
+        postalCode: data.postalCode,
+        bio: 'Nuevo usuario en VideoMatch',
+        profilePicture: undefined,
+        videoUrl: undefined,
+        verificationStatus: 'pending' as const,
+        interests: ['música', 'viajes'],
+        languages: ['Español'],
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        isVerified: false
       };
+      
       const mockToken = 'mock-jwt-token';
       
       login(mockUser, mockToken);
       toast.success('Account created successfully! Please verify your email.');
-      navigate('/verification');
+      navigate('/app/verification');
     } catch (error) {
       toast.error('Registration failed. Please try again.');
     } finally {

@@ -1,19 +1,19 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { 
-  User, 
+  Home, 
   Heart, 
   MessageCircle, 
+  User, 
   Video, 
   Shield, 
   LogOut,
-  Home,
   Settings
 } from 'lucide-react';
-import { useAuthStore } from '../stores/authStore';
+import { User as UserType } from '../types';
 
 interface SidebarProps {
-  user: any;
+  user: UserType;
   onLogout: () => void;
   totalUnread: number;
   currentPath: string;
@@ -21,12 +21,12 @@ interface SidebarProps {
 
 const navigation = [
   { name: 'Home', href: '/', icon: Home },
-  { name: 'Profile', href: '/profile', icon: User },
-  { name: 'Video Upload', href: '/video-upload', icon: Video },
-  { name: 'Matches', href: '/matches', icon: Heart },
-  { name: 'Chat', href: '/chat', icon: MessageCircle },
-  { name: 'Verification', href: '/verification', icon: Shield },
-  { name: 'Settings', href: '/settings', icon: Settings },
+  { name: 'Profile', href: '/app/profile', icon: User },
+  { name: 'Video Upload', href: '/app/video-upload', icon: Video },
+  { name: 'Matches', href: '/app/matches', icon: Heart },
+  { name: 'Chat', href: '/app/chat', icon: MessageCircle },
+  { name: 'Verification', href: '/app/verification', icon: Shield },
+  { name: 'Settings', href: '/app/settings', icon: Settings },
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ user, onLogout, totalUnread, currentPath }) => {
@@ -50,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user, onLogout, totalUnread, currentP
                   const isActive = currentPath === item.href;
                   return (
                     <li key={item.name}>
-                      <NavLink
+                      <Link
                         to={item.href}
                         className={`
                           group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold
@@ -72,7 +72,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user, onLogout, totalUnread, currentP
                             {totalUnread}
                           </span>
                         )}
-                      </NavLink>
+                      </Link>
                     </li>
                   );
                 })}

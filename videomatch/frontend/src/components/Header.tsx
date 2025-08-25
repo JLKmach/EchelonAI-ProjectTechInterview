@@ -1,15 +1,14 @@
 import React from 'react';
-import { User, Bell, Menu } from 'lucide-react';
-import { useAuthStore } from '../stores/authStore';
+import { User as UserIcon, Bell, Menu } from 'lucide-react';
+import { User } from '../types';
 
 interface HeaderProps {
-  user: any;
+  user: User;
   onMenuClick: () => void;
   totalUnread: number;
 }
 
 const Header: React.FC<HeaderProps> = ({ user, onMenuClick, totalUnread }) => {
-  const { logout } = useAuthStore();
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
@@ -66,7 +65,7 @@ const Header: React.FC<HeaderProps> = ({ user, onMenuClick, totalUnread }) => {
                 />
               ) : (
                 <div className="h-8 w-8 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center">
-                  <User className="h-4 w-4 text-white" />
+                  <UserIcon className="h-4 w-4 text-white" />
                 </div>
               )}
               <span className="hidden md:block text-gray-700 font-medium">

@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { X } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { User as UserType } from '../types';
 import { 
   User, 
   Heart, 
@@ -16,19 +17,19 @@ import {
 interface MobileMenuProps {
   open: boolean;
   setOpen: (open: boolean) => void;
-  user: any;
+  user: UserType;
   onLogout: () => void;
   totalUnread: number;
 }
 
 const navigation = [
   { name: 'Home', href: '/', icon: Home },
-  { name: 'Profile', href: '/profile', icon: User },
-  { name: 'Video Upload', href: '/video-upload', icon: Video },
-  { name: 'Matches', href: '/matches', icon: Heart },
-  { name: 'Chat', href: '/chat', icon: MessageCircle },
-  { name: 'Verification', href: '/verification', icon: Shield },
-  { name: 'Settings', href: '/settings', icon: Settings },
+  { name: 'Profile', href: '/app/profile', icon: User },
+  { name: 'Video Upload', href: '/app/video-upload', icon: Video },
+  { name: 'Matches', href: '/app/matches', icon: Heart },
+  { name: 'Chat', href: '/app/chat', icon: MessageCircle },
+  { name: 'Verification', href: '/app/verification', icon: Shield },
+  { name: 'Settings', href: '/app/settings', icon: Settings },
 ];
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ open, setOpen, user, onLogout, totalUnread }) => {
@@ -100,7 +101,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, setOpen, user, onLogout, 
                       <ul role="list" className="-mx-2 space-y-1">
                         {navigation.map((item) => (
                           <li key={item.name}>
-                            <NavLink
+                            <Link
                               to={item.href}
                               onClick={() => setOpen(false)}
                               className="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-700 hover:text-purple-600 hover:bg-purple-50"
@@ -115,7 +116,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, setOpen, user, onLogout, 
                                   {totalUnread}
                                 </span>
                               )}
-                            </NavLink>
+                            </Link>
                           </li>
                         ))}
                       </ul>

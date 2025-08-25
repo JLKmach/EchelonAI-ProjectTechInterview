@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
-import { Play, Heart, MessageCircle, Shield, Users, Video } from 'lucide-react';
+import { Heart, Video, Users, Shield, Play } from 'lucide-react';
 
 const Home: React.FC = () => {
   const { isAuthenticated } = useAuthStore();
@@ -38,7 +38,7 @@ const Home: React.FC = () => {
             <div className="mt-24 sm:mt-32 lg:mt-16">
               <a href="#" className="inline-flex space-x-6">
                 <span className="rounded-full bg-purple-600/10 px-3 py-1 text-sm font-semibold leading-6 text-purple-600 ring-1 ring-inset ring-purple-600/10">
-                  What's new
+                  What&apos;s new
                 </span>
                 <span className="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-gray-600">
                   <span>Just launched</span>
@@ -51,14 +51,15 @@ const Home: React.FC = () => {
                 video stories
               </span>
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              VideoMatch goes beyond photos to help you find meaningful connections. Share your passions, 
-              interests, and personality through authentic 3-minute video profiles.
+            <p className="mt-6 text-lg leading-8 text-gray-600 max-w-3xl">
+              Conecta con personas reales a través de videos auténticos. 
+              Muestra tu personalidad, pasiones e intereses de una manera 
+              que las fotos simplemente no pueden capturar.
             </p>
             <div className="mt-10 flex items-center gap-x-6">
               {isAuthenticated ? (
                 <Link
-                  to="/profile"
+                  to="/app/profile"
                   className="rounded-md bg-purple-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
                 >
                   Go to Profile

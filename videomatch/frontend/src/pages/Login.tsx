@@ -22,25 +22,33 @@ const Login: React.FC = () => {
     formState: { errors },
   } = useForm<LoginFormData>();
 
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = async (_data: LoginFormData) => {
     setIsLoading(true);
     try {
-      // TODO: Implement actual API call
-      // const response = await authService.login(data);
-      // login(response.user, response.token);
-      
-      // Mock login for now
+      // Simular login exitoso
       const mockUser = {
         id: '1',
-        email: data.email,
-        name: 'Demo User',
-        isVerified: true,
+        email: 'usuario@ejemplo.com',
+        name: 'Usuario Ejemplo',
+        birthDate: '1990-01-01',
+        city: 'Ciudad de México',
+        postalCode: '12345',
+        bio: 'Me gusta conocer gente nueva',
+        profilePicture: undefined,
+        videoUrl: undefined,
+        verificationStatus: 'pending' as const,
+        interests: ['música', 'viajes', 'deportes'],
+        languages: ['Español', 'Inglés'],
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        isVerified: true
       };
+      
       const mockToken = 'mock-jwt-token';
       
       login(mockUser, mockToken);
       toast.success('Welcome back!');
-      navigate('/profile');
+      navigate('/app/profile');
     } catch (error) {
       toast.error('Login failed. Please check your credentials.');
     } finally {

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Upload, Play, Pause, RotateCcw, Check, AlertCircle, Camera, Mic, Settings } from 'lucide-react';
+import { Play, Upload, RotateCcw, Camera, Mic, Settings, Check } from 'lucide-react';
 
 const VideoUpload: React.FC = () => {
   const [isRecording, setIsRecording] = useState(false);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heart, MessageCircle, X, Star, MapPin, Calendar } from 'lucide-react';
+import { Heart, MessageCircle, X, MapPin } from 'lucide-react';
 
 const Matches: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'potential' | 'matches'>('potential');

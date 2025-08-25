@@ -162,8 +162,6 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
+    // Solo plugins básicos que ya están instalados
   ],
 }
